@@ -8,9 +8,10 @@ export class MainPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.headerLocator = this.page.getByRole('banner');
-    this.categoriesTabsLocator = this.page.getByRole('main').locator('div').filter({
-      hasText: 'ГлавнаяФильмыСериалыТелешоуСпортБлогерыНовостиМузыкаПодкастыДетямТВ онлайн16+12',
+    this.categoriesTabsLocator = this.page.locator('section').filter({
+      hasText: /^ГлавнаяФильмыСериалыТелешоуСпортБлогерыНовостиМузыкаПодкастыДетямТВ онлайн$/,
     });
+
     this.menuLocator = this.page.getByLabel('Облегченная панель навигации');
   }
   async open() {
