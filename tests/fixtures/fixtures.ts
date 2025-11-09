@@ -9,8 +9,8 @@ export const test = base.extend<MyFixtures>({
   mainPage: async ({ page }, use) => {
     const mainPage = new MainPage(page);
     await mainPage.open();
-    await mainPage.closeMainAlert();
     await mainPage.closeCookiesAlert();
+    await mainPage.closeMainAlert();
 
     await use(mainPage);
   },

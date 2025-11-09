@@ -11,6 +11,9 @@ export class MainPage extends BasePage {
   private readonly headerAddButtoPopUpListLocator: Locator;
   private readonly headerNotificationsPopUpLocator: Locator;
   private readonly authorizationModalLocator: Locator;
+  private readonly menuButtonLocator: Locator;
+  private readonly openMenuAriaLocator: Locator;
+  private readonly changeThemeButtonLocator: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -32,10 +35,23 @@ export class MainPage extends BasePage {
       .locator('iframe=[title="Multipass"]')
       .contentFrame()
       .locator('div[role="form"]');
+    this.menuButtonLocator = this.page.getByRole('button', { name: 'Открыть меню навигации' });
+    this.openMenuAriaLocator = this.page.locator('.menu-content-module__menuOpen');
+    this.changeThemeButtonLocator = this.page.getByRole('button', {
+      name: 'Переключить на светлую тему',
+    });
   }
 
   async open() {
-    this.page.goto('https://rutube.ru/');
+    this.page.goto('https://rutube.ru');
+  }
+
+  async changeTheme() {
+    await this.changeThemeButtonLocator.click();
+  }
+
+  async openFullMenu() {
+    await this.menuButtonLocator.click();
   }
 
   async headerHasCorrectAriaSnapshot() {
@@ -80,5 +96,15 @@ export class MainPage extends BasePage {
     await expect(this.authorizationModalLocator).toMatchAriaSnapshot({
       name: 'authorizationModal.yml',
     });
+  }
+
+  async fullMenuHasCorrectAriaSnapshot() {
+    await expect(this.openMenuAriaLocator).toMatchAriaSnapshot({
+      name: 'fullMenuSnapshot.yml',
+    });
+  }
+
+  async checkThemeAttributeValue(attributeValue: 'dark2021' | 'white2022') {
+    await expect(this.page.locator('html')).toHaveAttribute('data-pen-theme', attributeValue);
   }
 }
