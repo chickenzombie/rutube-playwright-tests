@@ -2,6 +2,9 @@ import { expect, Locator, Page } from '@playwright/test';
 import { BasePage } from './BasePage';
 
 export class MainPage extends BasePage {
+  headerUserMenuAriaSnapshot() {
+    throw new Error('Method not implemented.');
+  }
   private readonly headerLocator: Locator;
   private readonly categoriesTabsLocator: Locator;
   private readonly menuLocator: Locator;
