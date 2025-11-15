@@ -24,3 +24,10 @@ test('Проверка доступности элементов раскрыт�
   await mainPage.openFullMenu();
   await mainPage.fullMenuHasCorrectAriaSnapshot();
 });
+
+test('Проверка доступности элементов меню пользователя в хедере авторизованного пользователя', async ({
+  mainPage,
+}) => {
+  await mainPage.openHeaderUserMenu();
+  await mainPage.headerUserMenuHasCorrectAriaSnapshot();
+});
